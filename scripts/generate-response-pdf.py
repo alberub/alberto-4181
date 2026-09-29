@@ -35,6 +35,7 @@ page_groups = [
     ('Proceso y decisiones', ['Proceso', 'Decisiones principales', 'Herramientas, diseño e IA']),
     ('Validación y alcance', ['Pruebas y razón de su elección', 'Funcionalidades terminadas', 'Pendientes y limitaciones']),
     ('Ejecución y entrega', ['Ejecución y entrega']),
+    ('Adicional: aplicación desplegada', ['Adicional: aplicación desplegada']),
     ('Adicional: propuesta de PostgreSQL', ['Adicional: propuesta de PostgreSQL']),
 ]
 story = []
@@ -53,7 +54,7 @@ for index, (page_title, labels) in enumerate(page_groups):
         story.append(Paragraph('Resultados de comprobación local', heading))
         story.append(Paragraph('Compilación de frontend y backend aprobada. 30 pruebas de lógica e integración aprobadas; 10 recorridos completos aprobados, repartidos entre escritorio y móvil. Se verificaron el servidor compilado y sus rutas, una instalación limpia y cinco escenarios por API. La revisión visual cubrió acceso, dashboard y recarga. Estos resultados no prueban despliegue, funcionamiento en Safari ni persistencia SQL.', body))
         story.append(Paragraph('Preparación antes de publicar', heading))
-        story.append(Paragraph('Revisar personalmente el código y sus decisiones; confirmar la identidad del autor del commit; crear el repositorio público con el nombre preparado; publicar solo los archivos del proyecto; verificar su acceso público; sustituir el estado pendiente por la URL real y regenerar este documento. No se incluye el documento de requisitos en el repositorio.', body))
+        story.append(Paragraph('Revisar personalmente el código y sus decisiones; publicar en el repositorio los últimos archivos de despliegue y documentación; comprobar registro, inicio de sesión y recarga sobre la URL pública; mantener explícitos los límites del almacenamiento local. No se incluye el documento de requisitos en el repositorio.', body))
 
 def footer(c, doc):
     c.setStrokeColor(HexColor('#dce2d6'))

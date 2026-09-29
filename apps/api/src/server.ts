@@ -12,4 +12,5 @@ if (existsSync(web)) {
   });
 }
 const port = Number(process.env.PORT ?? 3001);
-app.listen(port, '127.0.0.1', () => console.info(`Snail Club API: http://127.0.0.1:${port}`));
+const host = process.env.HOST ?? '127.0.0.1';
+app.listen(port, host, () => console.info(`Snail Club API: http://${host}:${port}`));

@@ -1,6 +1,6 @@
 # Snail Club: documento de respuesta
 
-**Borrador de entrega.** Pendiente: URL pública verificada de GitHub. El despliegue público se atenderá posteriormente.
+**Documento actualizado el 29 de septiembre de 2026.** Repositorio público y acceso HTTPS verificados. Las pruebas de navegador descritas corresponden al entorno local; el flujo completo sobre la URL pública queda pendiente de comprobación.
 
 ## Proceso
 
@@ -16,7 +16,7 @@ Los datos de tarjeta y CVV son fixtures conocidas y se incluyen en respuestas y 
 
 ## Herramientas, diseño e IA
 
-Vite, React Router, Recharts, Zod, Phosphor Icons y DM Sans. Diseño implementado en CSS a partir de una referencia visual proporcionada por el usuario. Se adaptaron el menú, barra superior, panel central y colores a saldo y resultados simulados. La interfaz ocupa toda la ventana; marca y cierre de sesión permanecen fijos y el contenido se desplaza por separado. El menú contiene Dashboard y Cargar saldo. Ambas gráficas están en el dashboard. Su botón de recarga abre un modal con foco contenido, cierre con Escape y devolución del foco. El mismo formulario aparece en Cargar saldo, con el historial a su derecha en escritorio y debajo en móvil. No se utilizó una plantilla descargada. Recharts resuelve las gráficas. La tipografía se sirve localmente. Vitest y Supertest verifican lógica y API; Playwright recorre la aplicación; Prettier uniforma el formato.
+Vite, React Router, Recharts, Zod, Phosphor Icons y DM Sans. Diseño implementado en CSS a partir de una referencia visual proporcionada por el usuario. Se adaptaron el menú, panel central y colores a saldo y resultados simulados. La interfaz ocupa toda la ventana; la marca y el perfil permanecen fijos y el contenido se desplaza por separado. Se retiró la barra superior y el perfil del sidebar abre un diálogo para cerrar sesión. El menú contiene Dashboard y Cargar saldo. Ambas gráficas están en el dashboard. Su botón de recarga abre un modal con foco contenido, cierre con Escape y devolución del foco. El mismo formulario aparece en Cargar saldo, con el historial a su derecha en escritorio y debajo en móvil. No se utilizó una plantilla descargada. Recharts resuelve las gráficas. La tipografía se sirve localmente. Vitest y Supertest verifican lógica y API; Playwright recorre la aplicación; Prettier uniforma el formato.
 
 Se utilizó inteligencia artificial de principio a fin mediante Codex para el análisis técnico, la arquitectura, el diseño, la generación y corrección del código, las pruebas y la documentación. Leí personalmente el documento de requisitos y fui guiando a la IA durante el desarrollo de la aplicación: definí el alcance, aporté la referencia visual, revisé los resultados y solicité correcciones de navegación, distribución e interacción. La implementación del código, las pruebas y los documentos se realizó con IA; no se presenta como escritura manual independiente.
 
@@ -36,7 +36,7 @@ Registro validado; inicio/cierre de sesión; persistencia local; protección de 
 
 ## Pendientes y limitaciones
 
-Pendientes de cierre: autor del commit, publicación del repositorio, URL verificada de GitHub. No hay despliegue público; es un adicional no implementado. PostgreSQL está propuesto, no conectado. No hay gestión multiusuario, recuperación de contraseña, verificación de correo ni apuestas/carreras ejecutables.
+El repositorio público tiene un commit inicial. La aplicación ya responde públicamente por HTTPS. Falta comprobar el recorrido completo de registro, acceso y recarga en esa URL, y publicar en GitHub los últimos archivos de despliegue y documentación. PostgreSQL está propuesto, no conectado. No hay gestión multiusuario, recuperación de contraseña, verificación de correo ni apuestas/carreras ejecutables.
 
 LocalStorage puede ser modificado por quien controla el navegador. No existe autenticación de servidor ni saldo financiero confiable. Borrar los datos del sitio elimina la cuenta. El caché de SnailPay es temporal, limitado a 1 000 referencias y se pierde al reiniciar. No hay conciliación durable tras un cierre inesperado. Web Locks coordina pestañas cuando está disponible; la alternativa solo serializa una instancia. En esta demo, un timeout simulado nunca aprueba; un proveedor real requeriría consulta y conciliación del estado desconocido.
 
@@ -44,9 +44,19 @@ LocalStorage puede ser modificado por quien controla el navegador. No existe aut
 
 Node.js 22.12 o posterior. Instalar dependencias con npm ci y ejecutar npm run dev. Interfaz en 127.0.0.1:5173; API en 127.0.0.1:3001. npm run build compila ambos proyectos; npm start sirve la compilación desde el puerto 3001. npm test ejecuta pruebas de lógica/API; instalar Chromium de Playwright y ejecutar npm run test:e2e para los recorridos completos. README y docs/SNAILPAY.md contienen los comandos y escenarios exactos, incluidos cinco comandos de demostración que imprimen el HTTP y la respuesta de SnailPay. docs/GUIA_CODIGO.md explica el recorrido de registro, sesión y recarga, los límites y la razón de las pruebas.
 
-Repositorio público: pendiente de publicación y verificación. Nombre preparado: alberto-4181, con cuatro cifras generadas aleatoriamente; su disponibilidad aún no se ha comprobado. El proyecto usa la rama main. Se revisaron los archivos publicables para excluir el documento fuente, datos locales, credenciales y referencias identificadoras del origen de los requisitos.
+Repositorio público verificado sin autenticación: https://github.com/alberub/alberto-4181. Nombre: alberto-4181, conforme al formato solicitado. El proyecto usa la rama main. Se revisaron los archivos publicables para excluir el documento fuente, datos locales, credenciales y referencias identificadoras del origen de los requisitos.
 
 Tiempo aproximado invertido: 5 horas, según la estimación del responsable. Incluye la lectura de requisitos, la dirección del desarrollo con IA, la revisión de resultados y los ajustes de la aplicación y sus entregables.
+
+## Adicional: aplicación desplegada
+
+URL pública: https://alberto-4181.duckdns.org. Plataforma: servidor VPS de Contabo con Ubuntu 24.04, Docker Compose y Caddy. DuckDNS proporciona el subdominio gratuito; el servidor ya estaba disponible y no se contrató un servicio adicional.
+
+Se construyó una imagen Docker en dos etapas con Node.js 24.15.0. La primera instala dependencias y compila React y Express; la segunda ejecuta el servidor compilado con usuario sin privilegios. Express entrega tanto la interfaz como el API. Docker Compose mantiene el proceso activo y publica el puerto únicamente en la interfaz local del servidor. Caddy recibe las solicitudes públicas, termina HTTPS y las dirige a la aplicación. El subdominio de DuckDNS apunta a la IP pública del VPS.
+
+El 29 de septiembre se verificaron el contenedor saludable, el API público y la ruta de acceso con respuesta HTTPS 200, y la redirección HTTP a HTTPS con estado 308. Estas comprobaciones acreditan acceso público y entrega del servicio, pero no sustituyen el recorrido completo de navegador en el despliegue. No existe un login adicional de infraestructura para consultar la aplicación; el visitante utiliza el registro e inicio de sesión propios del proyecto.
+
+Limitaciones: LocalStorage mantiene la cuenta y el saldo por navegador y origen; los datos del entorno local no se trasladan al dominio público. El login usa Web Crypto y necesita HTTPS. SnailPay y las carreras continúan siendo simulaciones; no se procesan pagos reales. Hay una sola instancia y el caché del API se pierde al reiniciar. Se depende de la disponibilidad del VPS y DuckDNS. La propuesta de PostgreSQL no está implementada.
 
 ## Adicional: propuesta de PostgreSQL
 

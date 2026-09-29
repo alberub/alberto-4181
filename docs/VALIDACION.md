@@ -2,16 +2,16 @@
 
 Fecha: 28 de septiembre de 2026. Entorno: macOS, Node.js 24.15.0. Resultados de la implementación local, sin despliegue público.
 
-| Comprobación                        | Resultado                          | Qué demuestra                                                                                 |
-| ----------------------------------- | ---------------------------------- | --------------------------------------------------------------------------------------------- |
-| `npm run build`                     | Aprobada                           | TypeScript, empaquetado del frontend y compilación del backend                                |
-| `npm test`                          | 30 pruebas aprobadas en 4 archivos | Lógica de cuenta, persistencia, montos, contrato de API, idempotencia y errores de transporte |
-| `npm run test:e2e`                  | 10 pruebas aprobadas               | 5 recorridos en escritorio y los mismos 5 en viewport móvil Chromium                          |
-| `node scripts/smoke-production.mjs` | Aprobada                           | API compilada, entrega del frontend y rutas SPA; API inexistente responde 404                 |
-| Revisión visual                     | Realizada                          | Registro, dashboard y recarga en escritorio y móvil                                           |
-| Errores de navegador                | Ninguno en la revisión visual      | No hubo excepciones de página durante registro y navegación                                   |
-| Ancho móvil                         | Sin desbordamiento horizontal      | Validado en viewport de 390 px                                                                |
-| PDF                                 | 4 páginas, Arial 10, sin imágenes  | Revisión de todas las páginas renderizadas                                                    |
+| Comprobación                        | Resultado                                                           | Qué demuestra                                                                                 |
+| ----------------------------------- | ------------------------------------------------------------------- | --------------------------------------------------------------------------------------------- |
+| `npm run build`                     | Aprobada                                                            | TypeScript, empaquetado del frontend y compilación del backend                                |
+| `npm test`                          | 30 pruebas aprobadas en 4 archivos                                  | Lógica de cuenta, persistencia, montos, contrato de API, idempotencia y errores de transporte |
+| `npm run test:e2e`                  | 10 pruebas aprobadas                                                | 5 recorridos en escritorio y los mismos 5 en viewport móvil Chromium                          |
+| `node scripts/smoke-production.mjs` | Aprobada                                                            | API compilada, entrega del frontend y rutas SPA; API inexistente responde 404                 |
+| Revisión visual                     | Realizada                                                           | Registro, dashboard y recarga en escritorio y móvil                                           |
+| Errores de navegador                | Ninguno en la revisión visual                                       | No hubo excepciones de página durante registro y navegación                                   |
+| Ancho móvil                         | Sin desbordamiento horizontal                                       | Validado en viewport de 390 px                                                                |
+| PDF                                 | 5 páginas, Arial 10, sin imágenes (actualizado el 29 de septiembre) | Revisión de todas las páginas renderizadas                                                    |
 
 ## Recorridos completos
 
@@ -32,7 +32,7 @@ Playwright utiliza un perfil aislado por prueba. Los datos de prueba no crean cu
 
 ## Lo que no está validado
 
-Publicación en GitHub, despliegue público, Safari, dispositivos físicos, seguridad de autenticación de producción, base de datos SQL, persistencia durable del servidor y conciliación con pagos reales. Son límites explícitos, no resultados inferidos de una compilación o un test.
+Recorrido completo de navegador en el despliegue público, Safari, dispositivos físicos, seguridad de autenticación de producción, base de datos SQL, persistencia durable del servidor y conciliación con pagos reales. Son límites explícitos, no resultados inferidos de una compilación o un test.
 
 ## Interfaz ajustada al alcance
 
@@ -49,3 +49,12 @@ El formulario se reutiliza en la página Cargar saldo y en el modal del dashboar
 Se repitió `npm run verify`: compilación, 30 pruebas de lógica/API en cuatro archivos y 10 recorridos E2E aprobados. También se ejecutaron `npm ci` y `npm run build` desde una copia limpia del proyecto, sin reutilizar node_modules, y se comprobó el servidor compilado de esa copia con las rutas SPA y el 404 de API. La instalación requirió descargar las dependencias fijadas desde npm porque el caché local estaba incompleto.
 
 Los cinco comandos `npm run demo:snailpay -- ...` fueron ejecutados contra el API local. Resultados: approved 200, declined 422, system-error 503, timeout 504 e invalid 400. Son verificaciones de la API; las pruebas E2E comprueban por separado los cambios del saldo del navegador.
+
+## Comprobación pública del 29 de septiembre de 2026
+
+Repositorio https://github.com/alberub/alberto-4181 accesible sin autenticación y
+marcado como público por la API de GitHub. El contenedor de la app figura como
+saludable. https://alberto-4181.duckdns.org/api/health devuelve HTTPS 200 con
+estado ok; /acceso devuelve HTTPS 200. HTTP redirige a HTTPS con estado 308.
+Se verificó TLS sin desactivar la validación de certificados. El recorrido
+completo del navegador en esa URL aún no se ha ejecutado.
